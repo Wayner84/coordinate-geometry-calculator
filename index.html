@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Local browser calculator for a circle through three XY points and the angle between two measured lines.">
+  <title>Coordinate Geometry Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">WAYNE / METROLOGY TOOL</p>
+    <h1>Coordinate geometry</h1>
+    <p>Calculate a circle from three measured points or the angle between two lines. Everything runs locally in your browser.</p>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Calculator mode">
+    <button id="circle-tab" role="tab" aria-selected="true" aria-controls="circle-panel">Three-point circle</button>
+    <button id="angle-tab" role="tab" aria-selected="false" aria-controls="angle-panel">Angle between lines</button>
+  </nav>
+
+  <section id="circle-panel" role="tabpanel" aria-labelledby="circle-tab">
+    <div class="workspace">
+      <form class="card controls" id="circle-form" novalidate>
+        <h2>Three points on the circle</h2>
+        <div class="point"><b>1</b><label>X<input name="x1" type="number" step="any" value="0" required></label><label>Y<input name="y1" type="number" step="any" value="0" required></label></div>
+        <div class="point"><b>2</b><label>X<input name="x2" type="number" step="any" value="10" required></label><label>Y<input name="y2" type="number" step="any" value="0" required></label></div>
+        <div class="point"><b>3</b><label>X<input name="x3" type="number" step="any" value="5" required></label><label>Y<input name="y3" type="number" step="any" value="5" required></label></div>
+        <button class="action" type="submit">Calculate circle</button>
+        <p class="error" id="circle-error" role="alert"></p>
+        <section class="results" aria-live="polite">
+          <div><span>Centre X</span><output id="centre-x">—</output></div>
+          <div><span>Centre Y</span><output id="centre-y">—</output></div>
+          <div class="primary"><span>Radius R</span><output id="radius">—</output></div>
+          <div><span>Diameter Ø</span><output id="diameter">—</output></div>
+        </section>
+      </form>
+      <section class="card plot-card"><h2>Circle plot</h2><canvas id="circle-plot" aria-label="Calculated circle plot"></canvas></section>
+    </div>
+    <p class="note">Three collinear points do not define a unique circle.</p>
+  </section>
+
+  <section id="angle-panel" role="tabpanel" aria-labelledby="angle-tab" hidden>
+    <div class="workspace">
+      <form class="card controls" id="angle-form" novalidate>
+        <h2>Four measured points</h2>
+        <h3><i class="green"></i>Line 1 — A to B</h3>
+        <div class="point"><b>A</b><label>X<input name="ax" type="number" step="any" value="0" required></label><label>Y<input name="ay" type="number" step="any" value="0" required></label></div>
+        <div class="point"><b>B</b><label>X<input name="bx" type="number" step="any" value="10" required></label><label>Y<input name="by" type="number" step="any" value="0" required></label></div>
+        <h3><i class="blue"></i>Line 2 — C to D</h3>
+        <div class="point second"><b>C</b><label>X<input name="cx" type="number" step="any" value="0" required></label><label>Y<input name="cy" type="number" step="any" value="0" required></label></div>
+        <div class="point second"><b>D</b><label>X<input name="dx" type="number" step="any" value="10" required></label><label>Y<input name="dy" type="number" step="any" value="10" required></label></div>
+        <button class="action" type="submit">Calculate angle</button>
+        <p class="error" id="angle-error" role="alert"></p>
+        <section class="results" aria-live="polite">
+          <div class="primary wide"><span>Smaller angle between lines</span><output id="small-angle">—</output></div>
+          <div><span>Other angle</span><output id="large-angle">—</output></div>
+          <div><span>Directed A→B to C→D</span><output id="directed-angle">—</output></div>
+          <div><span>Line 1 direction</span><output id="line1-direction">—</output></div>
+          <div><span>Line 2 direction</span><output id="line2-direction">—</output></div>
+          <div><span>Length A–B</span><output id="line1-length">—</output></div>
+          <div><span>Length C–D</span><output id="line2-length">—</output></div>
+        </section>
+      </form>
+      <section class="card plot-card"><h2>Line plot</h2><canvas id="angle-plot" aria-label="Measured line angle plot"></canvas></section>
+    </div>
+    <p class="note">The main result is the smaller angle between the two infinite lines (0°–90°). Directions are measured anticlockwise from +X.</p>
+  </section>
+</main>
+<script type="module" src="src/app.js"></script>
+</body>
+</html>
